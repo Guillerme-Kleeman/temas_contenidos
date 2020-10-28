@@ -1,7 +1,7 @@
 class TemasController < ApplicationController
   def index
     $asignatura = Asignatura.find(params['id'])
-  	@lista=Tema.where(["eliminado = ?", 0])
+  	@lista=Tema.where(["eliminado = ? AND asignatura_id = ?", 0, params['id']])
   end
 
   def new
