@@ -3,7 +3,7 @@
 <%= form_with scope: @item, url: contenidos_actualizar_path, method: :PUT do |f| %>
  <%= f.hidden_field  :id %>  
  <p><label>Tema</label>
- <%= f.select(:tema_id, options_from_collection_for_select(Tema.where(["eliminado = ?", 0]), :id, :descripcion), {}, {:class => 'form-control'}) %> 
+ <%= f.collection_select :tema_id, Tema.where(["eliminado = ?", 0]), :id, :descripcion, {}, { :class => 'form-control' } %> 
  </p>
  <p>
  <label>Nombre</label> <br>

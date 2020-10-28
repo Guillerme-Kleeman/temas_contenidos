@@ -3,7 +3,7 @@
 <%= form_with scope: @item, url: temas_actualizar_path, method: :PUT do |f| %>
  <%= f.hidden_field  :id %>  
  <p><label>Asignatura</label>
-  <%= f.select(:asignatura_id, options_from_collection_for_select(Asignatura.all, :ASIGN_ID, :ASIGN_NOMBRE), { }, {:class => 'form-control'}) %>  
+  <%= f.collection_select :asignatura_id, Asignatura.all, :ASIGN_ID, :ASIGN_NOMBRE, {}, { :class => 'form-control', :selected => @item.asignatura_id } %> 
  </p>
  <p>
  <label>Nombre</label> <br>
