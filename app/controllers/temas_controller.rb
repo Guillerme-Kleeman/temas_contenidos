@@ -1,12 +1,14 @@
 class TemasController < ApplicationController
   def index
     $asignatura = Asignatura.find(params['id'])
-  	@lista=Tema.all()
+  	@lista=Tema.where(["eliminado = ?", 0])
   end
 
   def new
   	@item=Tema.new
-    @item.tema_id = $asignatura.id
+    if $asignatura
+      @item.asignatura_id = $asignatura.id
+    end
   end
 
   def create
@@ -14,8 +16,9 @@ class TemasController < ApplicationController
     item.id=params['tema']['id']
     item.descripcion=params['tema']['descripcion']
     item.asignatura_id = params['tema']['asignatura_id']
+    item.eliminado = 0
     item.save
-    redirect_to temas_path	
+    redirect_to asignaturas_temas_path(item.asignatura_id)	
   end
 
   def edit
@@ -27,12 +30,14 @@ class TemasController < ApplicationController
     item.descripcion=params['tema']['descripcion']
     item.asignatura_id = params['tema']['asignatura_id']
     item.save
-    redirect_to temas_path	
+    redirect_to asignaturas_temas_path(item.asignatura_id)
   end
 
   def destroy
     item=Tema.find(params['id'])
-    item.destroy 
-    redirect_to temas_path
+    item.eliminado = 1
+    item.save
+    redirect_to asignaturas_temas_path(item.asignatura_id)
   end
 end
+
