@@ -8,6 +8,7 @@ class ContenidosController < ApplicationController
     @item=Contenido.new
     if($tema)
       @item.tema_id = $tema.id
+      @temas = Tema.where(["eliminado = ? AND asignatura_id = ?", 0, $tema.asignatura_id])
     end
   end
 
@@ -17,11 +18,12 @@ class ContenidosController < ApplicationController
     item.descripcion=params['contenido']['descripcion']
     item.tema_id = params['contenido']['tema_id']
     item.save
-    redirect_to temas_contenidos_path($tema)	
+    redirect_to temas_contenidos_path($tema || item.tema_id)	
   end
 
   def edit
-    @item=Contenido.find(params['id'])
+    @item = Contenido.find(params['id'])
+    @temas = Tema.where(["eliminado = ? AND asignatura_id = ?", 0, @item.tema.asignatura_id])
   end
 
   def update
@@ -29,12 +31,12 @@ class ContenidosController < ApplicationController
     item.descripcion=params['contenido']['descripcion']
     item.tema_id = params['contenido']['tema_id']
     item.save
-    redirect_to temas_contenidos_path($tema)	
+    redirect_to temas_contenidos_path($tema || item.tema_id)	
   end
 
   def destroy
     item=Contenido.find(params['id'])
     item.destroy 
-    redirect_to temas_contenidos_path($tema)
+    redirect_to temas_contenidos_path(item.tema_id)
   end
 end

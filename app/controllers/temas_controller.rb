@@ -18,7 +18,7 @@ class TemasController < ApplicationController
     item.asignatura_id = params['tema']['asignatura_id']
     item.eliminado = 0
     item.save
-    redirect_to asignaturas_temas_path(item.asignatura_id)	
+    redirect_to asignaturas_temas_path($asignatura || item.asignatura_id)	
   end
 
   def edit
@@ -30,7 +30,7 @@ class TemasController < ApplicationController
     item.descripcion=params['tema']['descripcion']
     item.asignatura_id = params['tema']['asignatura_id']
     item.save
-    redirect_to asignaturas_temas_path(item.asignatura_id)
+    redirect_to asignaturas_temas_path($asignatura || item.asignatura_id)
   end
 
   def destroy
