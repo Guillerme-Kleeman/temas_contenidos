@@ -1,0 +1,14 @@
+<div class="container">
+<h1 class="m-3">Nuevo Contenido</h1>
+<%= form_with scope: @item, url: contenidos_crear_path do |f| %>
+<p>
+<label>Tema</label>
+<%= f.collection_select :tema_id, Tema.where(["eliminado = ?", 0]), :id, :descripcion, {}, { :class => 'form-control' } %>
+</p>
+<p>
+	<label>Nombre</label> <br>
+	<%= f.text_field :descripcion, :class => 'form-control' %>
+</p>
+<%= f.submit "Enviar", disable_with: 'Submiting...', :class => 'btn btn-primary' %>
+<% end %>
+</div>

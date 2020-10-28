@@ -1,0 +1,14 @@
+<div class="container">
+<h1 class="m-3">Editar Contenidos</h1>
+<%= form_with scope: @item, url: contenidos_actualizar_path, method: :PUT do |f| %>
+ <%= f.hidden_field  :id %>  
+ <p><label>Tema</label>
+ <%= f.select(:tema_id, options_from_collection_for_select(Tema.where(["eliminado = ?", 0]), :id, :descripcion), {}, {:class => 'form-control'}) %> 
+ </p>
+ <p>
+ <label>Nombre</label> <br>
+ <%= f.text_field :descripcion, :class => 'form-control' %>
+ </p>
+ <%= f.submit "Enviar", disable_with: 'Submiting...', :class => 'btn btn-primary' %>
+<% end %>
+</div>

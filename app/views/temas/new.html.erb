@@ -1,0 +1,13 @@
+<div class="container">
+<h1 class="m-3">Nuevo Tema</h1>
+<%= form_with scope: @item, url: temas_crear_path do |f| %>
+<p><label>Asignatura</label>
+<%= f.select(:asignatura_id, options_from_collection_for_select(Asignatura.all, :ASIGN_ID, :ASIGN_NOMBRE), {}, {:class => 'form-control'}) %> 
+ </p>
+ <p>
+ <label>Nombre</label> <br>
+ <%= f.text_field :descripcion, :class => 'form-control' %>
+ </p>
+ <%= f.submit "Enviar", disable_with: 'Submiting...', :class => 'btn btn-primary' %>
+<% end %>
+</div>
